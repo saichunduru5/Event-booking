@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Background animated gradient */
+        body {
+            background: linear-gradient(-45deg, #6a11cb, #2575fc, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        /* Card entrance: fade + bounce */
+        @keyframes fadeBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.95);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(10px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .fade-bounce {
+            animation: fadeBounce 1s ease forwards;
+        }
+
+        /* Floating labels effect */
+        .form-label {
+            transition: all 0.3s ease;
+        }
+
+        input:focus + .form-label,
+        input:not(:placeholder-shown) + .form-label {
+            color: #0d6efd;
+            transform: translateY(-1.3em) scale(0.9);
+        }
+
+        /* Button animation: glow & pulse */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(13, 110, 253, 0.6);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* Card glow on hover */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            transition: box-shadow 0.5s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+        }
+
+        /* Fade-in text */
+        .fade-in-text {
+            animation: fadeInText 1.2s ease forwards;
+        }
+
+        @keyframes fadeInText {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card shadow mx-auto fade-bounce" style="max-width: 500px;">
+        <div class="card-header text-center bg-primary text-white fade-in-text">
+            <h4>Sign Up</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" class="fade-in-text">
+                {% csrf_token %}
+                {% for message in messages %}
+                    <div class="alert alert-warning" role="alert">{{ message }}</div>
+                {% endfor %}
+                <div class="form-floating mb-3">
+                    <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    <label class="form-label">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <label class="form-label">Email ID</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password1" class="form-control" placeholder="Password" required>
+                    <label class="form-label">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" name="password2" class="form-control" placeholder="Confirm Password" required>
+                    <label class="form-label">Confirm Password</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+            <div class="mt-3 text-center fade-in-text">
+                Already have an account? <a href="{% url 'login' %}">Login here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

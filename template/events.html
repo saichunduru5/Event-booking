@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Events
+{% endblock %}
+
+{% block content %}
+
+<h2 class="text-center" style="margin-top: 20px; color: #b30059; font-weight: 600; font-size: 2rem;">
+  Upcoming Events
+</h2>
+
+<style>
+/* Animated gradient background */
+body {
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* Card animation: fade and slight zoom on load */
+@keyframes fadeZoomIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.card {
+  animation: fadeZoomIn 0.8s ease forwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white; /* keeps cards clean on colorful background */
+}
+
+/* Hover effect: raise card + shadow */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+/* Card image styling */
+.card-img-top {
+  object-fit: cover;
+  height: 180px;
+}
+
+/* Text styling */
+.card-title {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  color: #555;
+}
+
+.price-text {
+  font-weight: bold;
+  color: green;
+}
+
+.offer-text {
+  color: #cc0066;
+  font-size: 0.95rem;
+}
+</style>
+
+<div class="container text-center">
+  {% for i in eve %}
+  <div class="card text-center" style="width: 20rem; display: inline-block; margin: 20px;">
+    <img src="{{ i.img.url }}" class="card-img-top" alt="Event Image">
+    <div class="card-body" style="padding: 15px;">
+      <h4 class="card-title">{{ i.name }}</h4>
+      <p class="card-text">{{ i.desc }}</p>
+      <p class="price-text">Price: ₹{{ i.price }}</p>
+      <p class="offer-text">Combo Offer: Book 2 get 1 Free</p>
+      <a href="{% url 'booking' %}" class="btn btn-success">Book Now</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+
